@@ -1,0 +1,412 @@
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+
+{% block title %}Tech Bootcamp - Learn Software Engineering{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    }
+    
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        min-height: 80vh;
+    }
+    
+    .hero-image-container {
+        position: relative;
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .hero-content-text {
+        color: white;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .hero-content-text {
+            order: 1;
+        }
+        
+        .hero-image-container {
+            order: 2;
+        }
+        
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+    
+    .feature-card {
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    
+    .testimonial-card {
+        transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .cta-gradient {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    }
+    
+    .floating-animation {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Navigation -->
+<nav class="hero-gradient fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-bold text-white">TechBootcamp</h1>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                    <a href="#features" class="text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
+                    <a href="#testimonials" class="text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Testimonials</a>
+                    <a href="#pricing" class="text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Pricing</a>
+                    <a href="{% url 'authentication:login' %}" class="text-white/90 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
+                    <a href="{% url 'authentication:register' %}" class="bg-white text-blue-600 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium transition-colors">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="hero-grid">
+            <!-- Content Side -->
+            <div class="hero-content-text">
+                <div class="floating-animation mb-8">
+                    <div class="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-full">
+                        <i class="fas fa-code text-6xl text-white"></i>
+                    </div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    Master Software Engineering
+                </h1>
+                <p class="text-lg md:text-xl text-white/90 mb-8 leading-relaxed">
+                    Join our structured, peer-supported technology education program and launch your career in tech
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'authentication:register' %}" class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+                        Start Learning Today
+                    </a>
+                    <a href="#features" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Image Side -->
+            <div class="hero-image-container">
+                <img src="/static/images/hero-background.png" alt="Students learning together in a collaborative environment" class="hero-image">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full floating-animation" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-20 right-10 w-16 h-16 bg-white/10 rounded-full floating-animation" style="animation-delay: -4s;"></div>
+    <div class="absolute top-1/2 left-20 w-12 h-12 bg-white/10 rounded-full floating-animation" style="animation-delay: -1s;"></div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Tech Bootcamp?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our comprehensive program is designed to take you from beginner to job-ready developer in just 6 months
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-code text-2xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Structured Learning</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Follow a carefully designed curriculum that takes you from beginner to job-ready developer with clear milestones and progress tracking.
+                </p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Peer Support</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Learn alongside fellow students in a collaborative environment with mentorship, study groups, and peer code reviews.
+                </p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-laptop-code text-2xl text-purple-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Real Projects</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Build real-world applications and portfolio projects that showcase your skills to employers and demonstrate your capabilities.
+                </p>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-certificate text-2xl text-yellow-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Industry Recognition</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Earn certificates and credentials that are recognized by top tech companies worldwide and boost your career prospects.
+                </p>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-chart-line text-2xl text-red-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Career Support</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Get job placement assistance, interview prep, and career guidance from industry professionals and hiring managers.
+                </p>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-clock text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Flexible Schedule</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Study at your own pace with flexible scheduling that fits your lifestyle, work commitments, and personal responsibilities.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">500+</div>
+                <div class="text-gray-600 font-medium">Students Graduated</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">95%</div>
+                <div class="text-gray-600 font-medium">Job Placement Rate</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">$85k</div>
+                <div class="text-gray-600 font-medium">Average Starting Salary</div>
+            </div>
+            <div>
+                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">6</div>
+                <div class="text-gray-600 font-medium">Months Program Duration</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Hear from our graduates who have transformed their careers and landed their dream jobs
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-900">Sarah Johnson</h4>
+                    <p class="text-gray-600">Software Engineer at Google</p>
+                </div>
+                <p class="text-gray-700 leading-relaxed">
+                    "The structured curriculum and peer support made all the difference. I went from complete beginner to landing my dream job at Google in just 6 months."
+                </p>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-900">Michael Chen</h4>
+                    <p class="text-gray-600">Full Stack Developer at Microsoft</p>
+                </div>
+                <p class="text-gray-700 leading-relaxed">
+                    "The real-world projects and industry mentorship prepared me perfectly for my role. The bootcamp gave me everything I needed to succeed."
+                </p>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-900">Emily Rodriguez</h4>
+                    <p class="text-gray-600">Frontend Developer at Netflix</p>
+                </div>
+                <p class="text-gray-700 leading-relaxed">
+                    "The collaborative learning environment and career support were incredible. I made lifelong friends and landed my dream job at Netflix."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="pricing" class="py-20 cta-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold text-white mb-6">Ready to Start Your Journey?</h2>
+        <p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+            Join thousands of students who have transformed their careers with our comprehensive software engineering program
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'authentication:register' %}" class="bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+                Enroll Now - Kshs 3000
+            </a>
+            <a href="#features" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                Learn More
+            </a>
+        </div>
+        <p class="text-white/80 mt-4 text-sm">
+            * Payment plans available • 30-day money-back guarantee
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">TechBootcamp</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    Transforming careers through structured, peer-supported technology education.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Programs</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Software Engineering</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Data Science</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Cybersecurity</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Coming Soon</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Support</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Career Services</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Alumni Network</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Connect</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 TechBootcamp. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 100) {
+            nav.classList.add('backdrop-blur-md');
+            nav.style.background = 'linear-gradient(135deg, rgba(30, 64, 175, 0.95) 0%, rgba(59, 130, 246, 0.95) 100%)';
+        } else {
+            nav.classList.remove('backdrop-blur-md');
+            nav.style.background = '';
+        }
+    });
+</script>
+{% endblock %}
