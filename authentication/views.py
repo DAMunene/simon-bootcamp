@@ -46,7 +46,11 @@ class UserLoginView(View):
     
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('core:dashboard')  # Redirect to dashboard if already logged in
+            # Redirect based on user role
+            if request.user.is_admin:
+                return redirect('admin:index')
+            else:
+                return redirect('home:dashboard')
         
         form = UserLoginForm()
         return render(request, 'authentication/login.html', {'form': form})
@@ -63,8 +67,11 @@ class UserLoginView(View):
                 
                 messages.success(request, f'Welcome back, {user.get_full_name()}!')
                 
-                # Redirect to dashboard
-                return redirect('home:dashboard')
+                # Redirect based on user role
+                if user.is_admin:
+                    return redirect('admin:index')
+                else:
+                    return redirect('home:dashboard')
             else:
                 messages.error(request, 'Invalid email or password.')
         else:
@@ -191,6 +198,8 @@ class UserProfileEditView(View):
         # Remove password fields for profile edit
         form.fields.pop('password1', None)
         form.fields.pop('password2', None)
+        # Remove email field from validation since it's disabled
+        form.fields.pop('email', None)
         
         if form.is_valid():
             try:

@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+
+{% block title %}Progress - Tech Bootcamp{% endblock %}
+
+{% block content %}
+<!-- Include Sidebar -->
+{% include 'sidebar.html' %}
+
+<div class="min-h-screen bg-gray-50 lg:ml-64">
+    <!-- Header -->
+    <div class="bg-white shadow-sm border-b border-gray-200">
+        <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <!-- Mobile menu button -->
+                    <button class="lg:hidden text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" id="mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-900 ml-2 lg:ml-0">Progress</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600 hidden sm:block">Welcome, {{ user.get_full_name }}!</span>
+                    <a href="{% url 'authentication:logout' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Progress Header Card -->
+        <div class="bg-blue-100 rounded-xl shadow-lg p-6 mb-8 text-gray-900">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold mb-2">Learning Progress</h1>
+                    <p class="text-blue-700 text-base">Track your learning journey and achievements</p>
+                </div>
+                <div class="hidden lg:block">
+                    <div class="w-20 h-20 bg-blue-200 rounded-full flex items-center justify-center">
+                        <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Metrics Cards (3-column grid) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Lessons Complete -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Lessons Complete</h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-1">{{ progress_data.lessons_completed }}</p>
+                        <p class="text-gray-600 text-sm">of {{ progress_data.total_lessons }} total</p>
+                    </div>
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: {{ progress_data.overall_completion }}%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phases Complete -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Phases Complete</h3>
+                        <p class="text-3xl font-bold text-green-600 mb-1">{{ progress_data.phases_completed }}</p>
+                        <p class="text-gray-600 text-sm">of {{ progress_data.total_phases }} total</p>
+                    </div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-green-600 h-2 rounded-full" style="width: {% widthratio progress_data.phases_completed progress_data.total_phases 100 %}%"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Learning Streak -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Learning Streak</h3>
+                        <p class="text-3xl font-bold text-yellow-600 mb-1">{{ progress_data.learning_streak_days }}</p>
+                        <p class="text-gray-600 text-sm">days in a row</p>
+                    </div>
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-yellow-600 text-sm font-medium">Keep it up!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase Progress Section -->
+        <div class="bg-white rounded-lg shadow-lg mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Phase Progress</h2>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6">
+                    {% for phase in progress_data.phase_progress %}
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-12 h-12 {% if phase.status == 'completed' %}bg-green-100{% elif phase.status == 'in_progress' %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-full flex items-center justify-center">
+                            {% if phase.status == 'completed' %}
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            {% elif phase.status == 'in_progress' %}
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            {% else %}
+                                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            {% endif %}
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-lg font-semibold {% if phase.status == 'locked' %}text-gray-500{% else %}text-gray-900{% endif %}">{{ phase.name }}</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="{% if phase.status == 'completed' %}bg-green-600{% elif phase.status == 'in_progress' %}bg-blue-600{% else %}bg-gray-300{% endif %} h-2 rounded-full" style="width: {{ phase.progress }}%"></div>
+                            </div>
+                            <p class="text-sm {% if phase.status == 'locked' %}text-gray-500{% else %}text-gray-600{% endif %} mt-1">
+                                {% if phase.status == 'completed' %}Completed{% elif phase.status == 'in_progress' %}{{ phase.progress }}% Complete{% else %}Locked - Complete previous phase{% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Mobile menu script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+
+    if (mobileMenuButton && sidebar) {
+        mobileMenuButton.addEventListener('click', function() {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    }
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    }
+});
+</script>
+{% endblock %}

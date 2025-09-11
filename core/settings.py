@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "theme",
     "authentication",
     "home",
+    "curriculum",
 ]
 
 MIDDLEWARE = [

@@ -4,16 +4,25 @@
 {% block title %}Dashboard - Tech Bootcamp{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50">
+<!-- Include Sidebar -->
+{% include 'sidebar.html' %}
+
+<div class="min-h-screen bg-gray-50 lg:ml-64">
     <!-- Header -->
     <div class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+                    <!-- Mobile menu button -->
+                    <button class="lg:hidden text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600" id="mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-900 ml-2 lg:ml-0">Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">Welcome, {{ user.get_full_name }}!</span>
+                    <span class="text-gray-600 hidden sm:block">Welcome, {{ user.get_full_name }}!</span>
                     <a href="{% url 'authentication:logout' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                         Logout
                     </a>
@@ -23,79 +32,205 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <!-- Progress Card -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 rounded-full bg-blue-100">
-                        <i class="fas fa-chart-line text-blue-600 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900">Progress</h3>
-                        <p class="text-gray-600">25% Complete</p>
-                    </div>
+    <div class="px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hero Welcome Card -->
+        <div class="bg-blue-100 rounded-xl shadow-lg p-6 mb-8 text-gray-900">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold mb-2">Welcome back, {{ user.get_full_name }}!</h1>
+                    <p class="text-blue-700 text-base">You're making great progress in Software Engineering!</p>
                 </div>
-            </div>
-
-            <!-- Assignments Card -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 rounded-full bg-green-100">
-                        <i class="fas fa-tasks text-green-600 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900">Assignments</h3>
-                        <p class="text-gray-600">3 Pending</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Projects Card -->
-            <div class="bg-white rounded-lg shadow p-6">
-                <div class="flex items-center">
-                    <div class="p-3 rounded-full bg-purple-100">
-                        <i class="fas fa-code text-purple-600 text-xl"></i>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900">Projects</h3>
-                        <p class="text-gray-600">2 Completed</p>
+                <div class="hidden lg:block">
+                    <div class="w-20 h-20 bg-blue-200 rounded-full flex items-center justify-center">
+                        <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="bg-white rounded-lg shadow">
+        <!-- Progress Overview Cards (3-column grid) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Overall Progress Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Overall Progress</h3>
+                        <p class="text-3xl font-bold text-blue-600 mb-1">25%</p>
+                        <p class="text-gray-600 text-sm">15/60 lessons complete</p>
+                    </div>
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: 25%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Phase Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Current Phase</h3>
+                        <p class="text-lg font-semibold text-green-600 mb-1">Programming</p>
+                        <p class="text-gray-600 text-sm">Fundamentals - 60% done</p>
+                    </div>
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-green-600 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Remaining Card -->
+            <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Time Remaining</h3>
+                        <p class="text-3xl font-bold text-purple-600 mb-1">8</p>
+                        <p class="text-gray-600 text-sm">months left</p>
+                    </div>
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button class="text-purple-600 text-sm font-medium hover:text-purple-700">View Timeline</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Learning Section -->
+        <div class="bg-white rounded-lg shadow-lg mb-8">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900">Recent Activity</h2>
+                <h2 class="text-xl font-semibold text-gray-900">Continue Learning</h2>
             </div>
             <div class="p-6">
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                        <div>
-                            <p class="text-sm text-gray-900">Completed JavaScript Fundamentals</p>
-                            <p class="text-xs text-gray-500">2 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
-                        <div>
-                            <p class="text-sm text-gray-900">Submitted React Project</p>
-                            <p class="text-xs text-gray-500">1 day ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                        <div>
-                            <p class="text-sm text-gray-900">Peer Review Completed</p>
-                            <p class="text-xs text-gray-500">3 days ago</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Day 3: Control Structures (if/else)</h3>
+                            <p class="text-gray-600 mb-4">Learn about conditional logic and decision making in programming. Master the fundamentals of if/else statements and logical operators.</p>
+                            <div class="flex items-center space-x-6 mb-4">
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    15 min read
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Has Knowledge Check
+                                </div>
+                                <div class="flex items-center text-sm text-gray-600">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                    60% done
+                                </div>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button class="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                                    Start Lesson
+                                </button>
+                                <button class="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                                    Mark Complete
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-sm text-gray-600"><strong>Next:</strong> Day 4: Functions (Coming tomorrow)</p>
+                </div>
             </div>
         </div>
+
+        <!-- Learning Path Visualization -->
+        <div class="bg-white rounded-lg shadow-lg mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Your Learning Journey</h2>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6">
+                    <!-- Phase 1 -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900">Phase 1: Programming Fundamentals</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">60% Complete</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                <div class="flex items-center">
+                        <div class="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900">Phase 2: Object-Oriented Programming</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Locked - Complete Phase 1 first</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-lg font-semibold text-gray-500">Phase 3: Web Development Basics</h3>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Locked</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex space-x-4">
+                    <button class="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        View Full Path
+                    </button>
+                    <button class="border border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        Unlock Next Phase
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
 </div>
 {% endblock %}
