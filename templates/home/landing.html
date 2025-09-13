@@ -62,6 +62,31 @@
         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
     
+    /* Feature card hover borders matching icon colors */
+    .feature-card:nth-child(1):hover {
+        border: 2px solid #6b7280; /* gray-500 to match gray icon */
+    }
+    
+    .feature-card:nth-child(2):hover {
+        border: 2px solid #16a34a; /* green-600 to match green icon */
+    }
+    
+    .feature-card:nth-child(3):hover {
+        border: 2px solid #9333ea; /* purple-600 to match purple icon */
+    }
+    
+    .feature-card:nth-child(4):hover {
+        border: 2px solid #eab308; /* yellow-600 to match yellow icon */
+    }
+    
+    .feature-card:nth-child(5):hover {
+        border: 2px solid #dc2626; /* red-600 to match red icon */
+    }
+    
+    .feature-card:nth-child(6):hover {
+        border: 2px solid #4f46e5; /* indigo-600 to match indigo icon */
+    }
+    
     .testimonial-card {
         transition: all 0.3s ease;
     }
@@ -95,7 +120,7 @@
 
 {% block content %}
 <!-- Navigation -->
-<nav class="hero-gradient fixed w-full top-0 z-50">
+<nav class="bg-gray-50 fixed w-full top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
@@ -109,7 +134,7 @@
                     <a href="#testimonials" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Testimonials</a>
                     <a href="#pricing" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Pricing</a>
                     <a href="{% url 'authentication:login' %}" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
-                    <a href="{% url 'authentication:register' %}" class="bg-gray-800 text-white hover:bg-gray-900 px-4 py-2 rounded-md text-sm font-medium transition-colors">Get Started</a>
+                    <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 hover:bg-blue-200 px-4 py-2 rounded-md text-sm font-medium transition-colors">Get Started</a>
                 </div>
             </div>
         </div>
@@ -117,7 +142,7 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+<section class="bg-gray-50 min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="hero-grid">
             <!-- Content Side -->
@@ -131,13 +156,13 @@
                     Master Software Engineering
                 </h1>
                 <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                    Join our structured, peer-supported technology education program and launch your career in tech
+                    Join our structured technology education program and launch your career in tech
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{% url 'authentication:register' %}" class="bg-gray-800 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-900 transition-colors shadow-lg">
+                    <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors shadow-lg">
                         Start Learning Today
                     </a>
-                    <a href="#features" class="border-2 border-gray-800 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 hover:text-white transition-colors">
+                    <a href="#features" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors">
                         Learn More
                     </a>
                 </div>
@@ -157,7 +182,7 @@
 </section>
 
 <!-- Features Section -->
-<section id="features" class="py-20 bg-gray-50">
+<section id="features" class="py-20 cta-gradient">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Tech Bootcamp?</h2>
@@ -183,9 +208,9 @@
                 <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                     <i class="fas fa-users text-2xl text-green-600"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Peer Support</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Expert Instruction</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Learn alongside fellow students in a collaborative environment with mentorship, study groups, and peer code reviews.
+                    Learn from experienced industry professionals with years of real-world experience. Get personalized guidance and mentorship from experts who have worked at top tech companies.
                 </p>
             </div>
             
@@ -236,29 +261,6 @@
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">500+</div>
-                <div class="text-gray-600 font-medium">Students Graduated</div>
-            </div>
-            <div>
-                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">95%</div>
-                <div class="text-gray-600 font-medium">Job Placement Rate</div>
-            </div>
-            <div>
-                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">$85k</div>
-                <div class="text-gray-600 font-medium">Average Starting Salary</div>
-            </div>
-            <div>
-                <div class="stat-number text-4xl md:text-5xl font-bold mb-2">6</div>
-                <div class="text-gray-600 font-medium">Months Program Duration</div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Testimonials Section -->
 <section id="testimonials" class="py-20 bg-gray-50">
@@ -307,6 +309,86 @@
     </div>
 </section>
 
+<!-- FAQ Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Get answers to common questions about our bootcamp program
+            </p>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold text-gray-900">What programming languages will I learn?</span>
+                    <i class="fas fa-chevron-down faq-icon transition-transform"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        Our curriculum covers modern web development technologies including HTML, CSS, JavaScript, Python, React, Node.js, and database management with SQL. You'll also learn version control with Git and deployment strategies.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold text-gray-900">Do I need prior programming experience?</span>
+                    <i class="fas fa-chevron-down faq-icon transition-transform"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        No prior programming experience is required! Our bootcamp is designed for complete beginners. We start with the fundamentals and gradually build up to advanced concepts, ensuring everyone can follow along regardless of their background.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold text-gray-900">What is the time commitment?</span>
+                    <i class="fas fa-chevron-down faq-icon transition-transform"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        The program is designed to be flexible, requiring approximately 20-25 hours per week. This includes live sessions, self-paced learning, and project work. You can study during evenings and weekends to fit your schedule.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold text-gray-900">What kind of support do I get?</span>
+                    <i class="fas fa-chevron-down faq-icon transition-transform"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        You'll have access to experienced instructors, peer mentors, study groups, and a dedicated support team. We also provide career services including resume review, interview preparation, and job placement assistance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item bg-white border border-gray-200 rounded-lg shadow-sm">
+                <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold text-gray-900">What happens after I graduate?</span>
+                    <i class="fas fa-chevron-down faq-icon transition-transform"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        Graduates receive ongoing career support for 6 months after completion, including access to our job board, networking events, and continued mentorship. We also provide lifetime access to updated course materials and our alumni community.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <!-- CTA Section -->
 <section id="pricing" class="py-20 cta-gradient">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -315,15 +397,15 @@
             Join thousands of students who have transformed their careers with our comprehensive software engineering program
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{% url 'authentication:register' %}" class="bg-gray-800 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-900 transition-colors shadow-lg">
+            <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors shadow-lg">
                 Enroll Now - Kshs 3000
             </a>
-            <a href="#features" class="border-2 border-gray-800 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 hover:text-white transition-colors">
+            <a href="#features" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors">
                 Learn More
             </a>
         </div>
         <p class="text-gray-500 mt-4 text-sm">
-            * Payment plans available • 30-day money-back guarantee
+            * Payment plans available
         </p>
     </div>
 </section>
@@ -402,11 +484,37 @@
         const nav = document.querySelector('nav');
         if (window.scrollY > 100) {
             nav.classList.add('backdrop-blur-md');
-            nav.style.background = 'linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(226, 232, 240, 0.95) 100%)';
+            nav.style.background = 'rgba(249, 250, 251, 0.95)'; // bg-gray-50 with opacity
         } else {
             nav.classList.remove('backdrop-blur-md');
             nav.style.background = '';
         }
     });
+    
+    // FAQ Accordion functionality
+    function toggleFAQ(button) {
+        const faqItem = button.closest('.faq-item');
+        const answer = faqItem.querySelector('.faq-answer');
+        const icon = button.querySelector('.faq-icon');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== faqItem) {
+                const otherAnswer = item.querySelector('.faq-answer');
+                const otherIcon = item.querySelector('.faq-icon');
+                otherAnswer.classList.add('hidden');
+                otherIcon.style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Toggle current FAQ item
+        if (answer.classList.contains('hidden')) {
+            answer.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            answer.classList.add('hidden');
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
 </script>
 {% endblock %}
