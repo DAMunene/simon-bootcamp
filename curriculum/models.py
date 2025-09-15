@@ -29,6 +29,12 @@ class Course(TimeStampedModel):
     name = models.CharField(max_length=100, verbose_name='Course Name')
     slug = models.SlugField(unique=True, verbose_name='URL Slug')
     description = models.TextField(verbose_name='Course Description')
+    thumbnail = models.ImageField(
+        upload_to='course_thumbnails/',
+        null=True,
+        blank=True,
+        verbose_name='Course Thumbnail'
+    )
     
     # Duration and pricing
     duration_months = models.IntegerField(

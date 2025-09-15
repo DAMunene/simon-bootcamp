@@ -158,24 +158,4 @@
     </div>
 </div>
 
-<!-- Mobile menu script -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-
-    if (mobileMenuButton && sidebar) {
-        mobileMenuButton.addEventListener('click', function() {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-    }
-
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-    }
-});
-</script>
 {% endblock %}

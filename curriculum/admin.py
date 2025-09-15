@@ -15,7 +15,7 @@ class CourseAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'slug', 'description')
+            'fields': ('name', 'slug', 'description', 'thumbnail')
         }),
         ('Course Details', {
             'fields': ('duration_months', 'price_per_phase', 'total_price', 'total_duration_days')

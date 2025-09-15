@@ -1,13 +1,43 @@
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
+from datetime import datetime, date
+from curriculum.models import Course, Cohort
 
 
 class HomeView(View):
     """Landing page view for the bootcamp platform"""
     
     def get(self, request):
-        return render(request, 'home/landing.html')
+        # Get featured courses from database
+        featured_courses = Course.objects.filter(
+            is_featured=True,
+            is_active=True
+        ).order_by('created_at')[:6]  # Limit to 6 courses
+        
+        # Get the next upcoming cohort
+        next_cohort = None
+        days_until_cohort = None
+        
+        try:
+            next_cohort = Cohort.objects.filter(
+                status='upcoming',
+                start_date__gte=date.today()
+            ).order_by('start_date').first()
+            
+            if next_cohort:
+                days_until_cohort = (next_cohort.start_date - date.today()).days
+        except Exception:
+            # Handle case where no cohorts exist or other errors
+            pass
+        
+        context = {
+            'featured_courses': featured_courses,
+            'next_cohort': next_cohort,
+            'days_until_cohort': days_until_cohort,
+        }
+        return render(request, 'home/landing.html', context)
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -119,3 +149,30 @@ class CoursesView(LoginRequiredMixin, View):
             }
         }
         return render(request, 'home/courses.html', context)
+
+
+class AboutView(View):
+    """About Us page view"""
+    
+    def get(self, request):
+        context = {
+            'title': 'About Us',
+        }
+        return render(request, 'home/about.html', context)
+
+
+class ContactView(View):
+    """Contact Us page view"""
+    
+    def get(self, request):
+        context = {
+            'title': 'Contact Us',
+        }
+        return render(request, 'home/contact.html', context)
+    
+    def post(self, request):
+        # Handle contact form submission
+        # For now, just redirect back to contact page with success message
+        from django.contrib import messages
+        messages.success(request, 'Thank you for your message! We\'ll get back to you soon.')
+        return render(request, 'home/contact.html', {'title': 'Contact Us'})

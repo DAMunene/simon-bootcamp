@@ -1,34 +1,34 @@
 {% extends 'base.html' %}
 {% load tailwind_tags %}
 
+
+
 {% block title %}Tech Bootcamp - Learn Software Engineering{% endblock %}
 
 {% block extra_css %}
 <style>
     .hero-gradient {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/close-up-men-looking-laptop.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        overflow: hidden;
     }
     
     .hero-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 4rem;
         align-items: center;
         min-height: 80vh;
-    }
-    
-    .hero-image-container {
-        position: relative;
-    }
-    
-    .hero-image {
-        width: 100%;
-        height: auto;
-        display: block;
+        text-align: center;
     }
     
     .hero-content-text {
-        color: #1f2937;
+        color: #ffffff;
+        position: relative;
+        z-index: 10;
     }
     
     /* Mobile responsive */
@@ -37,19 +37,6 @@
             grid-template-columns: 1fr;
             gap: 2rem;
             text-align: center;
-        }
-        
-        .hero-content-text {
-            order: 1;
-        }
-        
-        .hero-image-container {
-            order: 2;
-        }
-        
-        .hero-image {
-            max-width: 100%;
-            height: auto;
         }
     }
     
@@ -115,71 +102,392 @@
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-20px); }
     }
+    
+    /* Course Grid Styles */
+    .course-grid-container {
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .course-card {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    @media (max-width: 768px) {
+        .course-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+    
+    /* Floating Cohort Counter Styles */
+    .cohort-counter {
+        animation: slideInUp 0.5s ease-out;
+    }
+    
+    .cohort-counter:hover {
+        transform: translateY(-2px);
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Mobile responsiveness for floating counter */
+    @media (max-width: 640px) {
+        .cohort-counter {
+            bottom: 20px;
+            right: 20px;
+            left: auto;
+            position: fixed;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .cohort-counter > div {
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+        }
+        
+        .cohort-counter .text-2xl {
+            font-size: 1.25rem;
+        }
+        
+        .cohort-counter .text-xs {
+            font-size: 0.625rem;
+        }
+    }
+    
+    /* Extra small screens - make it even smaller */
+    @media (max-width: 480px) {
+        .cohort-counter {
+            bottom: 15px;
+            right: 15px;
+            max-width: 150px;
+        }
+        
+        .cohort-counter > div {
+            padding: 6px 10px;
+        }
+        
+        .cohort-counter .text-2xl {
+            font-size: 1rem;
+        }
+    }
+    
+    /* Compact Process Steps with Arrows */
+    .process-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .process-step {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        width: 240px;
+        position: relative;
+    }
+    
+    .process-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .process-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+        margin-top: 1rem;
+        flex: 0 0 auto;
+    }
+    
+    .arrow-svg {
+        width: 80px;
+        height: 40px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    
+    .process-arrow:hover .arrow-svg {
+        opacity: 0.8;
+    }
+    
+    .step-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+    
+    .step-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .step-number {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #6b7280;
+        line-height: 1;
+    }
+    
+    .step-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .step-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.75rem;
+    }
+    
+    .step-description {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        flex-grow: 1;
+    }
+    
+    
+    /* Mobile responsiveness for process steps */
+    @media (max-width: 1024px) {
+        .process-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .process-arrow {
+            transform: rotate(90deg);
+            height: 40px;
+            margin: 0.5rem 0;
+        }
+        
+        .arrow-svg {
+            width: 40px;
+            height: 60px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .process-arrow {
+            display: none;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .process-step {
+            padding: 1.25rem;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .step-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.125rem;
+        }
+        
+        .step-number {
+            font-size: 1.25rem;
+        }
+        
+        .step-title {
+            font-size: 1rem;
+        }
+        
+        .step-description {
+            font-size: 0.8125rem;
+        }
+    }
+    
 </style>
 {% endblock %}
 
 {% block content %}
 <!-- Navigation -->
-<nav class="bg-gray-50 fixed w-full top-0 z-50">
+<nav class="fixed w-full top-0 z-50 bg-transparent">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <h1 class="text-2xl font-bold text-gray-800">TechBootcamp</h1>
+                    <h1 class="text-2xl font-bold text-white">TechBootcamp</h1>
                 </div>
             </div>
             <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
-                    <a href="#features" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Testimonials</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Pricing</a>
-                    <a href="{% url 'authentication:login' %}" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
+                    <a href="{% url 'curriculum:courses_list' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">Our Programs</a>
+                    <a href="{% url 'home:about' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">About Us</a>
+                    <a href="{% url 'home:contact' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact Us</a>
+                    <a href="{% url 'authentication:login' %}" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
                     <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 hover:bg-blue-200 px-4 py-2 rounded-md text-sm font-medium transition-colors">Get Started</a>
                 </div>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button type="button" class="text-white hover:text-gray-200 focus:outline-none focus:text-gray-200" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
     </div>
 </nav>
 
+<!-- Mobile Sidebar -->
+<div class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out -translate-x-full" id="mobile-sidebar">
+    <!-- Sidebar Header -->
+    <div class="flex items-center justify-between h-16 px-6 bg-blue-600">
+        <div class="flex items-center">
+            <div class="flex-shrink-0">
+                <h1 class="text-xl font-bold text-white">TechBootcamp</h1>
+            </div>
+        </div>
+        <button class="text-white hover:text-gray-200 focus:outline-none focus:text-gray-200" id="sidebar-close">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Sidebar Content -->
+    <div class="flex flex-col h-full pt-5 pb-4 overflow-y-auto">
+        <nav class="flex-1 px-3 space-y-1">
+            <a href="{% url 'home:home' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200 bg-blue-50 text-blue-700 border-r-2 border-blue-600">
+                <i class="fas fa-home flex-shrink-0 w-5 h-5 mr-3 text-blue-600"></i>
+                Home
+            </a>
+            <a href="{% url 'curriculum:courses_list' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
+                <i class="fas fa-graduation-cap flex-shrink-0 w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                Our Programs
+            </a>
+            <a href="{% url 'home:about' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
+                <i class="fas fa-info-circle flex-shrink-0 w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                About Us
+            </a>
+            <a href="{% url 'home:contact' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
+                <i class="fas fa-envelope flex-shrink-0 w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                Contact Us
+            </a>
+            <a href="{% url 'authentication:login' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
+                <i class="fas fa-sign-in-alt flex-shrink-0 w-5 h-5 mr-3 text-gray-400 group-hover:text-gray-500"></i>
+                Login
+            </a>
+            <a href="{% url 'authentication:register' %}" class="group flex items-center px-3 py-2 text-sm font-medium rounded-md bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200">
+                <i class="fas fa-user-plus flex-shrink-0 w-5 h-5 mr-3 text-blue-600"></i>
+                Get Started
+            </a>
+        </nav>
+    </div>
+</div>
+
+<!-- Sidebar Overlay (Mobile) -->
+<div class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 hidden" id="sidebar-overlay"></div>
+
 <!-- Hero Section -->
-<section class="bg-gray-50 min-h-screen flex items-center justify-center relative overflow-hidden">
+<section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="hero-grid">
             <!-- Content Side -->
             <div class="hero-content-text">
                 <div class="floating-animation mb-8">
-                    <div class="inline-block p-4 bg-gray-200 rounded-full">
-                        <i class="fas fa-code text-6xl text-gray-800"></i>
+                    <div class="inline-block p-4 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-code text-6xl text-white"></i>
                     </div>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight">
-                    Master Software Engineering
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    The Tech Launchpad
                 </h1>
-                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                    Join our structured technology education program and launch your career in tech
+                <p class="text-lg md:text-xl text-white mb-8 leading-relaxed opacity-90">
+                    Choose from our comprehensive technology programs designed to launch your career in the digital world
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors shadow-lg">
                         Start Learning Today
                     </a>
                     <a href="#features" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors">
                         Learn More
                     </a>
-                </div>
             </div>
             
-            <!-- Image Side -->
-            <div class="hero-image-container">
-                <img src="/static/images/hero-background.png" alt="Students learning together in a collaborative environment" class="hero-image">
             </div>
         </div>
     </div>
     
     <!-- Floating Elements -->
-    <div class="absolute top-20 left-10 w-20 h-20 bg-gray-300/30 rounded-full floating-animation" style="animation-delay: -2s;"></div>
-    <div class="absolute bottom-20 right-10 w-16 h-16 bg-gray-300/30 rounded-full floating-animation" style="animation-delay: -4s;"></div>
-    <div class="absolute top-1/2 left-20 w-12 h-12 bg-gray-300/30 rounded-full floating-animation" style="animation-delay: -1s;"></div>
+    <div class="absolute top-20 left-10 w-20 h-20 bg-white/20 rounded-full floating-animation" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-20 right-10 w-16 h-16 bg-white/20 rounded-full floating-animation" style="animation-delay: -4s;"></div>
+    <div class="absolute top-1/2 left-20 w-12 h-12 bg-white/20 rounded-full floating-animation" style="animation-delay: -1s;"></div>
 </section>
+
+<!-- Floating Cohort Counter -->
+{% if next_cohort and days_until_cohort >= 0 %}
+<div class="fixed bottom-6 right-6 z-40 cohort-counter">
+    <div class="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+        <div class="text-gray-700 text-xs font-medium mb-1">Next Cohort</div>
+        <div class="text-2xl font-bold text-blue-600 mb-1" id="countdown-timer">
+            {{ days_until_cohort }} day{{ days_until_cohort|pluralize }}
+        </div>
+        <div class="text-gray-500 text-xs">
+            {{ next_cohort.name }}
+        </div>
+        <div class="text-gray-400 text-xs">
+            {{ next_cohort.start_date|date:"M j" }}
+        </div>
+    </div>
+</div>
+{% elif next_cohort and days_until_cohort < 0 %}
+<div class="fixed bottom-6 right-6 z-40 cohort-counter">
+    <div class="bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+        <div class="text-gray-700 text-xs font-medium mb-1">Cohort Started</div>
+        <div class="text-lg font-bold text-green-600 mb-1">
+            {{ next_cohort.name }}
+        </div>
+        <div class="text-gray-400 text-xs">
+            Started {{ next_cohort.start_date|date:"M j" }}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <!-- Features Section -->
 <section id="features" class="py-20 cta-gradient">
@@ -187,7 +495,7 @@
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Tech Bootcamp?</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our comprehensive program is designed to take you from beginner to job-ready developer in just 6 months
+                Our comprehensive programs are designed to take you from beginner to job-ready professional with flexible durations to fit your schedule
             </p>
         </div>
         
@@ -217,11 +525,11 @@
             <!-- Feature 3 -->
             <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
                 <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-laptop-code text-2xl text-purple-600"></i>
+                    <i class="fas fa-comments text-2xl text-purple-600"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Real Projects</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Code Reviews & Feedback</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Build real-world applications and portfolio projects that showcase your skills to employers and demonstrate your capabilities.
+                    Get personalized feedback on your code from experienced developers and learn best practices through detailed code reviews.
                 </p>
             </div>
             
@@ -239,11 +547,11 @@
             <!-- Feature 5 -->
             <div class="feature-card bg-white p-8 rounded-2xl shadow-lg">
                 <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-chart-line text-2xl text-red-600"></i>
+                    <i class="fas fa-briefcase text-2xl text-red-600"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Career Support</h3>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Portfolio Development</h3>
                 <p class="text-gray-600 leading-relaxed">
-                    Get job placement assistance, interview prep, and career guidance from industry professionals and hiring managers.
+                    Build real-world projects and create a professional portfolio that showcases your skills to potential employers.
                 </p>
             </div>
             
@@ -261,6 +569,164 @@
     </div>
 </section>
 
+<!-- Featured Courses Section -->
+<section class="pt-20 pb-8 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Featured Courses</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Explore our comprehensive bootcamp programs designed to launch your tech career
+            </p>
+        </div>
+        
+        <!-- Course Grid -->
+        <div class="course-grid-container">
+            <div class="course-grid">
+                {% for course in featured_courses %}
+                <div class="course-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="course-thumbnail h-48 bg-white flex items-center justify-center">
+                        {% if course.thumbnail %}
+                            <img src="{{ course.thumbnail.url }}" alt="{{ course.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <i class="fas fa-graduation-cap text-6xl text-gray-500"></i>
+                        {% endif %}
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ course.name }}</h3>
+                        <p class="text-gray-600 mb-4">{{ course.description|truncatewords:15 }}</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">{{ course.duration_months }} month{{ course.duration_months|pluralize }}</span>
+                            <span class="text-lg font-semibold text-blue-600">Ksh {{ course.price_per_phase|floatformat:0 }}<span class="text-gray-600 text-sm">/phase</span></span>
+                        </div>
+                        <a href="{% url 'curriculum:course_detail' course.slug %}" class="w-full bg-blue-100 border border-blue-300 text-gray-800 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-200 transition-colors text-center block">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="course-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="p-6 text-center">
+                        <i class="fas fa-graduation-cap text-6xl text-gray-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">No Featured Courses</h3>
+                        <p class="text-gray-600">Check back soon for featured programs!</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Enrollment Process Section -->
+<section class="py-20 cta-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">How to Get Started</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Join thousands of students in just 5 simple steps. Your journey to a tech career starts here.
+            </p>
+        </div>
+        
+        <!-- Process Steps - Compact Design with Arrows -->
+        <div class="max-w-6xl mx-auto">
+            <div class="process-container">
+                <!-- Step 1: Account Creation -->
+                <div class="process-step">
+                    <div class="step-header">
+                        <div class="step-icon bg-blue-500">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="step-number">01</div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Create Account</h3>
+                        <p class="step-description">Sign up with your email and create your student profile in under 2 minutes.</p>
+                    </div>
+                </div>
+                
+                <!-- Arrow 1 -->
+                <div class="process-arrow">
+                    <svg class="arrow-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 25 Q50 5 90 25" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M85 20 L90 25 L85 30" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <!-- Step 2: Dashboard Access -->
+                <div class="process-step">
+                    <div class="step-header">
+                        <div class="step-icon bg-indigo-500">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <div class="step-number">02</div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Access Dashboard</h3>
+                        <p class="step-description">Explore your personalized dashboard and get familiar with the learning platform.</p>
+                    </div>
+                </div>
+                
+                <!-- Arrow 2 -->
+                <div class="process-arrow">
+                    <svg class="arrow-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 25 Q50 5 90 25" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M85 20 L90 25 L85 30" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <!-- Step 3: View Courses -->
+                <div class="process-step">
+                    <div class="step-header">
+                        <div class="step-icon bg-purple-500">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="step-number">03</div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Browse Programs</h3>
+                        <p class="step-description">Explore our comprehensive course catalog and find the perfect program for your goals.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Payment -->
+                <div class="process-step">
+                    <div class="step-header">
+                        <div class="step-icon bg-green-500">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="step-number">04</div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Secure Payment</h3>
+                        <p class="step-description">Complete your enrollment with our secure payment system. Multiple payment options available.</p>
+                    </div>
+                </div>
+                
+                <!-- Arrow 4 -->
+                <div class="process-arrow">
+                    <svg class="arrow-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 25 Q50 5 90 25" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M85 20 L90 25 L85 30" stroke="#6b7280" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                
+                <!-- Step 5: Cohort Assignment -->
+                <div class="process-step">
+                    <div class="step-header">
+                        <div class="step-icon bg-orange-500">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="step-number">05</div>
+                    </div>
+                    <div class="step-content">
+                        <h3 class="step-title">Join Cohort</h3>
+                        <p class="step-description">Get assigned to your cohort and start your learning journey with fellow students.</p>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Testimonials Section -->
 <section id="testimonials" class="py-20 bg-gray-50">
@@ -280,7 +746,7 @@
                     <p class="text-gray-600">Software Engineer at Google</p>
                 </div>
                 <p class="text-gray-700 leading-relaxed">
-                    "The structured curriculum and peer support made all the difference. I went from complete beginner to landing my dream job at Google in just 6 months."
+                    "The structured curriculum and expert instruction made all the difference. I went from complete beginner to landing my dream job at Google with the skills I learned here."
                 </p>
             </div>
             
@@ -380,7 +846,7 @@
                 </button>
                 <div class="faq-answer hidden px-6 pb-4">
                     <p class="text-gray-600 leading-relaxed">
-                        Graduates receive ongoing career support for 6 months after completion, including access to our job board, networking events, and continued mentorship. We also provide lifetime access to updated course materials and our alumni community.
+                        Graduates receive ongoing support after completion, including access to our alumni community, networking events, and continued mentorship. We also provide lifetime access to updated course materials and our professional network.
                     </p>
                 </div>
             </div>
@@ -398,7 +864,7 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{% url 'authentication:register' %}" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors shadow-lg">
-                Enroll Now - Kshs 3000
+                Enroll Now
             </a>
             <a href="#features" class="bg-blue-100 border border-blue-300 text-gray-800 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-200 transition-colors">
                 Learn More
@@ -410,61 +876,13 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <h3 class="text-xl font-bold mb-4">TechBootcamp</h3>
-                <p class="text-gray-400 leading-relaxed">
-                    Transforming careers through structured, peer-supported technology education.
-                </p>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-4">Programs</h4>
-                <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Software Engineering</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Data Science</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Cybersecurity</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Coming Soon</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-4">Support</h4>
-                <ul class="space-y-2 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Career Services</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Alumni Network</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-semibold mb-4">Connect</h4>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fab fa-discord text-xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 TechBootcamp. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+{% include 'footer.html' %}
 {% endblock %}
 
 {% block extra_js %}
+
 <script>
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -479,12 +897,58 @@
         });
     });
     
+    // Mobile sidebar functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('mobile-sidebar');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        // Toggle sidebar on mobile (from header menu button)
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+                sidebarOverlay.classList.toggle('hidden');
+            });
+        }
+
+        // Toggle sidebar on mobile (from sidebar close button)
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', function() {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            });
+        }
+
+        // Close sidebar when clicking overlay
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', function() {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            });
+        }
+
+        // Close sidebar on window resize if mobile
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.add('-translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+            }
+        });
+
+        // Initialize sidebar state - hidden by default on mobile
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        }
+    });
+    
     // Add scroll effect to navigation
     window.addEventListener('scroll', function() {
         const nav = document.querySelector('nav');
         if (window.scrollY > 100) {
             nav.classList.add('backdrop-blur-md');
-            nav.style.background = 'rgba(249, 250, 251, 0.95)'; // bg-gray-50 with opacity
+            nav.style.background = 'rgba(0, 0, 0, 0.8)'; // Dark background with opacity
         } else {
             nav.classList.remove('backdrop-blur-md');
             nav.style.background = '';
@@ -516,5 +980,34 @@
             icon.style.transform = 'rotate(0deg)';
         }
     }
+    
+    // Live Countdown Timer
+    {% if next_cohort and days_until_cohort >= 0 %}
+    function updateCountdown() {
+        const countdownElement = document.getElementById('countdown-timer');
+        if (!countdownElement) return;
+        
+        // Get the cohort start date from the template
+        const cohortStartDate = new Date('{{ next_cohort.start_date|date:"Y-m-d" }}');
+        const now = new Date();
+        
+        // Calculate the difference
+        const timeDiff = cohortStartDate.getTime() - now.getTime();
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        
+        if (daysDiff > 0) {
+            countdownElement.textContent = daysDiff + ' day' + (daysDiff !== 1 ? 's' : '');
+        } else if (daysDiff === 0) {
+            countdownElement.textContent = 'Today!';
+        } else {
+            // Cohort has started
+            countdownElement.textContent = 'Started';
+        }
+    }
+    
+    // Update countdown immediately and then every hour
+    updateCountdown();
+    setInterval(updateCountdown, 3600000); // Update every hour
+    {% endif %}
 </script>
 {% endblock %}
