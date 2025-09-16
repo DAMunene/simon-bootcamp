@@ -175,6 +175,12 @@ SITE_DOMAIN = 'localhost:8000'
 # SECURE_CONTENT_TYPE_NOSNIFF = os.getenv('SECURE_CONTENT_TYPE_NOSNIFF', 'True').lower() == 'true'
 # X_FRAME_OPTIONS = os.getenv('X_FRAME_OPTIONS', 'DENY')
 
+# CSRF Trusted Origins - Required for HTTPS deployments
+CSRF_TRUSTED_ORIGINS = [
+    'https://techlaunch.azurewebsites.net',
+    'https://www.techlaunch.azurewebsites.net',
+]
+
 # Production Security Settings (uncomment for production)
 # SECURE_SSL_REDIRECT = True
 # SECURE_HSTS_SECONDS = 31536000
